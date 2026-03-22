@@ -1,0 +1,12 @@
+<nav id="navig-rail-container" aria-label="Main Category Navigation">
+  <ul class="navig-rail-container__list">
+    {% for menuItem in fetchNavigationTree %}
+  {# No filters needed - 'menuItem.slug' and 'menuItem.cleanedTitle' are ready #}
+    <li><button data-category="{{ menuItem.slug }}">
+      {{ menuItem.cleanedTitle }}
+    </button></li>
+{% endfor %}
+  </ul>
+</nav>
+
+
