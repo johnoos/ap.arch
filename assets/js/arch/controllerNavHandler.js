@@ -1,9 +1,9 @@
 // controllerNavHandler.js
-import { openPdfViewer } from './pdfViewer.js';
-import { loadFragment } from './fragmentLoader.js';
-import { showSpinner, hideSpinner } from './utils.js';
-import { toggleSidebar, closeSidebarIfClickedOutside } from './sidebar.js';
-import { setupHistory } from './historyManager.js';
+import { openPdfViewer } from '../pdfViewer.js';
+import { loadFragment } from '../fragmentLoader.js';
+import { showSpinner, hideSpinner } from '../utils.js';
+import { toggleSidebar, closeSidebarIfClickedOutside } from '../sidebar.js';
+import { setupHistory } from '../historyManager.js';
 
 window.toggleMenu = toggleSidebar;
 
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   pdfViewer?.addEventListener('click', (e) => {
     // Check if they clicked the close button specifically
     if (e.target.closest('.btn-close-viewer')) {
-      import('./pdfViewer.js').then(m => m.closePdfViewer());
+      import('../pdfViewer.js').then(m => m.closePdfViewer());
     }
   });
 });

@@ -1,5 +1,11 @@
 // ap.arch/index.js
 
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+
 /**
  * This function is the entry point for your architecture package.
  * When the website calls `eleventyConfig.addPlugin(apArch)`, 
@@ -11,9 +17,12 @@ export default function(eleventyConfig, options = {}) {
     return new Date(dateObj).toLocaleDateString();
   });
 
+  // Use absolute paths resolved from the plugin's own location
+  const archDir = __dirname; 
+
   eleventyConfig.addPassthroughCopy({
-    "node_modules/ap.arch/assets": "assets",
-    "node_modules/ap.arch/css": "css",
-    "node_modules/ap.arch/scripts": "scripts"
+    [path.join(archDir, "assets/js")]: "assets/js/arch",
+    [path.join(archDir, "css")]: "css/arch",
+    [path.join(archDir, "scripts")]: "scripts/arch"
   });
 }  
