@@ -1,14 +1,14 @@
 <header class="top-panel-container">
   <table class="top-panel-table">
     <tr class="top-panel-row">
-      <td><img src="/assets/images/candy-logo.jpeg" alt="Logo" class="logo-cell"></td> <!-- col 1 = logo -->
+      <td><img src="/assets/img/candy-logo.jpeg" alt="Logo" class="logo-cell"></td> <!-- col 1 = logo -->
       <td class="title-cell">
         <div class="title-line-1">
-          {% block name %}Default website title{% endblock %}
+          {{ personName }}
           <span class="desktop-pipe">&nbsp;|&nbsp;</span>
-          <span class="no-break-mobile">{% block highest-degree %}Default degree{% endblock %}</span>
+          <span class="no-break-mobile">{{ highestDegree }}</span>
         </div>
-        <div class="title-line-2">{% block website-title %}Academic Portfolio{% endblock %}</div>
+        <div class="title-line-2">{{ websiteTitle }}</div>
       </td>
       <td class="menu-cell">
         <div id="menu-overlay"></div>

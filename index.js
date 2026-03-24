@@ -21,8 +21,6 @@ export default function(eleventyConfig, options = {}) {
   const archDir = __dirname; 
 
   eleventyConfig.addPassthroughCopy({
-    [path.join(archDir, "assets/js")]: "assets/js/arch",
-    [path.join(archDir, "css")]: "css/arch",
-    [path.join(archDir, "scripts")]: "scripts/arch"
+    [path.join(archDir, "assets/")]: "assets/"
   });
 }  

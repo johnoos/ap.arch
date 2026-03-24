@@ -1,9 +1,9 @@
 // controllerNavHandler.js
-import { openPdfViewer } from '../pdfViewer.js';
-import { loadFragment } from '../fragmentLoader.js';
-import { showSpinner, hideSpinner } from '../utils.js';
-import { toggleSidebar, closeSidebarIfClickedOutside } from '../sidebar.js';
-import { setupHistory } from '../historyManager.js';
+import { openPdfViewer } from './pdfViewer.js';
+import { loadFragment } from './fragmentLoader.js';
+import { showSpinner, hideSpinner } from './utils.js';
+import { toggleSidebar, closeSidebarIfClickedOutside } from './sidebar.js';
+import { setupHistory } from './historyManager.js';
 
 window.toggleMenu = toggleSidebar;
 
