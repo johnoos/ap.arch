@@ -1,21 +1,20 @@
-// builds the hierarchical "Tree" used for the sidebar and galleries
-
+// node_modules/ap.arch/src/assets/arch/js/fetchNavigationTree.js (Node.js version)
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PATHS = { pdfSource: path.resolve(__dirname, '../assets/pdfs') };
 
-/** 
- * THE MASTER CLEANER: Use this for both Folders and PDFs 
- * Preserves PhD, ATCL, etc.
- */
-const getCleanedTitle = (str) => {
+// Jump up from arch/js to assets/ then into local/pdfs
+const PATHS = { 
+  pdfSource: path.resolve(__dirname, '../../local/pdfs') 
+};
+
+export const getCleanedTitle = (str) => {
   if (!str) return "";
   return str.replace('.pdf', '')
-    .replace(/^\d+[-_]*/, "")    // Remove 01-
-    .replace(/[-_]+/g, " ")      // Hyphens to spaces
+    .replace(/^\d+[-_]*/, "")
+    .replace(/[-_]+/g, " ")
     .trim()
     .split(" ")
     .map(word => {
@@ -27,31 +26,28 @@ const getCleanedTitle = (str) => {
 
 const getSlug = (str) => str.toLowerCase().replace('.pdf', '').replace(/^\d+[-_]*/, "").replace(/[^a-z0-9]/g, '-');
 
-// --- THE DATA GENERATOR ---
-
 export default () => {
-  if (!fs.existsSync(PATHS.pdfSource)) return [];
+  if (!fs.existsSync(PATHS.pdfSource)) {
+    console.warn(`[ap.arch] PDF Source not found at: ${PATHS.pdfSource}`);
+    return [];
+  }
 
   return fs.readdirSync(PATHS.pdfSource, { withFileTypes: true })
     .filter(d => d.isDirectory() && !d.name.startsWith('.'))
     .map(folder => {
-      // 1. FOLDERIDENTIFIER
       const folderNameOnDisk = folder.name;
       const catPath = path.join(PATHS.pdfSource, folderNameOnDisk);
 
       const pdfFiles = fs.readdirSync(catPath)
         .filter(file => file.toLowerCase().endsWith('.pdf'))
         .map(filename => {
-          // 2. PDFIDENTIFIER
-          const pdfNameOnDisk = filename;
           const baseNoExt = filename.replace('.pdf', '');
-
           return {
-            nameOnDisk: pdfNameOnDisk,
+            nameOnDisk: filename,
             cleanedTitle: getCleanedTitle(baseNoExt),
             slug: getSlug(baseNoExt),
-            // Asset paths use lowercase disk name for 404 safety
-            url: `/assets/pdfs/${folderNameOnDisk}/${pdfNameOnDisk}`,
+            // This URL must match your website's passthrough destination
+            url: `/assets/pdfs/${folderNameOnDisk}/${filename}`,
             previewUrl: `/assets/previews/${baseNoExt.toLowerCase()}-1.png`
           };
         });
